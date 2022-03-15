@@ -2,7 +2,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { AlertProvider } from './components/context/alert/AlertContext';
 import { GithubProvider } from './components/context/github/GithubContext';
 import { Alert, Footer, Navbar } from './components/layout/index';
-import { About, Home, NotFound } from './pages/index';
+import { About, Home, NotFound, User } from './pages/index';
 
 const App = () => (
   <GithubProvider>
@@ -16,6 +16,8 @@ const App = () => (
             <Routes>
               <Route path='/' element={<Home />} />
               <Route path='/about' element={<About />} />
+              <Route path='/user/:login' element={<User />} />
+              <Route path='/notfound' element={<NotFound />} />
               <Route path='*' element={<NotFound />} />
             </Routes>
           </main>

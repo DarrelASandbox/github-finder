@@ -4,21 +4,27 @@ import { Link, useParams } from 'react-router-dom';
 import ReposList from '../components/users/ReposList';
 import { searchUserAndRepos } from '../context/github/GithubActions';
 import GithubContext from '../context/github/GithubContext';
+import { NotFound } from './index';
 
 const User = () => {
-  const { dispatch, user, repos, loading } = useContext(GithubContext);
+  const { dispatch, user, repos, loading, profileExist } =
+    useContext(GithubContext);
   const params = useParams();
 
   useEffect(() => {
-    dispatch({ type: 'SET_LOADING' });
-
     const getUserData = async () => {
-      const userData = await searchUserAndRepos(params.login);
-      dispatch({ type: 'GET_USER_AND_REPOS', payload: userData });
+      try {
+        dispatch({ type: 'SET_LOADING' });
+        const userData = await searchUserAndRepos(params.login);
+        dispatch({ type: 'GET_USER_AND_REPOS', payload: userData });
+      } catch (error) {
+        dispatch({ type: 'PROFILE_ERROR' });
+        return <NotFound />;
+      }
     };
-
     getUserData();
-  }, [dispatch, params.login]);
+    if (!profileExist) return <NotFound />;
+  }, [dispatch, params.login, profileExist]);
 
   const {
     name,

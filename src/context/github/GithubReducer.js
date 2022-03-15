@@ -28,6 +28,13 @@ const githubReducer = (state, action) => {
         loading: true,
       };
 
+    case 'PROFILE_ERROR':
+      return {
+        ...state,
+        loading: false,
+        profileExist: false,
+      };
+
     default:
       return state;
   }

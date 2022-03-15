@@ -2,13 +2,16 @@ import { useEffect, useContext } from 'react';
 import GithubContext from '../components/context/github/GithubContext';
 import { useParams, Link } from 'react-router-dom';
 import { FaCodepen, FaStore, FaUserFriends, FaUsers } from 'react-icons/fa';
+import ReposList from '../components/users/ReposList';
 
 const User = () => {
-  const { searchUser, user, loading } = useContext(GithubContext);
+  const { searchUser, searchUserRepos, user, repos, loading } =
+    useContext(GithubContext);
   const params = useParams();
 
   useEffect(() => {
     searchUser(params.login);
+    searchUserRepos(params.login);
   }, []);
 
   const {
@@ -155,6 +158,8 @@ const User = () => {
             </div>
           </div>
         </div>
+
+        <ReposList repos={repos} />
       </div>
     </>
   );

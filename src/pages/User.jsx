@@ -19,12 +19,12 @@ const User = () => {
         dispatch({ type: 'GET_USER_AND_REPOS', payload: userData });
       } catch (error) {
         dispatch({ type: 'PROFILE_ERROR' });
-        return <NotFound />;
       }
     };
     getUserData();
-    if (!profileExist) return <NotFound />;
   }, [dispatch, params.login, profileExist]);
+
+  if (!profileExist) return <NotFound />;
 
   const {
     name,

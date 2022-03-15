@@ -1,17 +1,28 @@
-import { useEffect, useContext } from 'react';
-import GithubContext from '../components/context/github/GithubContext';
-import { useParams, Link } from 'react-router-dom';
+import { useContext, useEffect } from 'react';
 import { FaCodepen, FaStore, FaUserFriends, FaUsers } from 'react-icons/fa';
+import { Link, useParams } from 'react-router-dom';
+import {
+  searchUser,
+  searchUserRepos,
+} from '../components/context/github/GithubActions';
+import GithubContext from '../components/context/github/GithubContext';
 import ReposList from '../components/users/ReposList';
 
 const User = () => {
-  const { searchUser, searchUserRepos, user, repos, loading } =
-    useContext(GithubContext);
+  const { dispatch, user, repos, loading } = useContext(GithubContext);
   const params = useParams();
 
   useEffect(() => {
-    searchUser(params.login);
-    searchUserRepos(params.login);
+    dispatch({ type: 'SET_LOADING' });
+
+    const getUserData = async () => {
+      const userData = await searchUser(params.login);
+      dispatch({ type: 'GET_USER', payload: userData });
+      const userReposData = await searchUserRepos(params.login);
+      dispatch({ type: 'GET_USER_REPOS', payload: userReposData });
+    };
+
+    getUserData();
   }, []);
 
   const {

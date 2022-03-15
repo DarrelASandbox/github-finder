@@ -1,12 +1,9 @@
 import { useContext, useEffect } from 'react';
 import { FaCodepen, FaStore, FaUserFriends, FaUsers } from 'react-icons/fa';
 import { Link, useParams } from 'react-router-dom';
-import {
-  searchUser,
-  searchUserRepos,
-} from '../components/context/github/GithubActions';
-import GithubContext from '../components/context/github/GithubContext';
 import ReposList from '../components/users/ReposList';
+import { searchUser, searchUserRepos } from '../context/github/GithubActions';
+import GithubContext from '../context/github/GithubContext';
 
 const User = () => {
   const { dispatch, user, repos, loading } = useContext(GithubContext);

@@ -1,6 +1,6 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { AlertProvider } from './components/context/alert/AlertContext';
-import { GithubProvider } from './components/context/github/GithubContext';
+import { AlertProvider } from './context/alert/AlertContext';
+import { GithubProvider } from './context/github/GithubContext';
 import { Alert, Footer, Navbar } from './components/layout/index';
 import { About, Home, NotFound, User } from './pages/index';
 

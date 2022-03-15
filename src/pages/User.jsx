@@ -2,7 +2,7 @@ import { useContext, useEffect } from 'react';
 import { FaCodepen, FaStore, FaUserFriends, FaUsers } from 'react-icons/fa';
 import { Link, useParams } from 'react-router-dom';
 import ReposList from '../components/users/ReposList';
-import { searchUser, searchUserRepos } from '../context/github/GithubActions';
+import { searchUserAndRepos } from '../context/github/GithubActions';
 import GithubContext from '../context/github/GithubContext';
 
 const User = () => {
@@ -13,14 +13,12 @@ const User = () => {
     dispatch({ type: 'SET_LOADING' });
 
     const getUserData = async () => {
-      const userData = await searchUser(params.login);
-      dispatch({ type: 'GET_USER', payload: userData });
-      const userReposData = await searchUserRepos(params.login);
-      dispatch({ type: 'GET_USER_REPOS', payload: userReposData });
+      const userData = await searchUserAndRepos(params.login);
+      dispatch({ type: 'GET_USER_AND_REPOS', payload: userData });
     };
 
     getUserData();
-  }, []);
+  }, [dispatch, params.login]);
 
   const {
     name,
